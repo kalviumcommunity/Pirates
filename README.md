@@ -4,7 +4,7 @@
 
         ## API Documentation
 
-        Postman Collection:
+       git Postman Collection:
         `/docs/flutter_firebase_postman.json`
 
         Version: **1.0.0**
@@ -63,6 +63,37 @@
         * Better user experience across devices
         * Supports tablets and large screens
         * Future-ready for multiple screen sizes
+
+        ---
+
+        ## Firebase Integration – Sprint 2
+
+        This screen demonstrates Firebase Authentication and Firestore usage with login, signup, and real-time notes.
+
+        ### Screenshots
+
+        (Add images)
+
+        * Signup success
+        * Login success
+        * Home screen showing notes
+        * Firebase Console - Authentication
+        * Firebase Console - Firestore data
+
+        ### Reflection
+
+        Challenges:
+
+        * Firebase setup and configuration
+        * Handling async operations
+        * Firestore real-time updates
+
+        Benefits of Firebase:
+
+        * No backend needed
+        * Real-time data sync
+        * Secure authentication
+        * Scalable cloud infrastructure
 
         ## Reflection
 
