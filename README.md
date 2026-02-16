@@ -1,29 +1,29 @@
-    # RunSOS
+        # RunSOS
 
-    Emergency & Live Community Alert System for runners and cyclists.
+        Emergency & Live Community Alert System for runners and cyclists.
 
-    ## API Documentation
+        ## API Documentation
 
-    Postman Collection:
-    `/docs/flutter_firebase_postman.json`
+        Postman Collection:
+        `/docs/flutter_firebase_postman.json`
 
-    Version: **1.0.0**
-    Last Updated: **2025-11-13**
-    Authentication: Firebase Token
+        Version: **1.0.0**
+        Last Updated: **2025-11-13**
+        Authentication: Firebase Token
 
-    ---
+        ---
 
-    ## Architecture
+        ## Architecture
 
-    See: `ARCHITECTURE.md`
+        See: `ARCHITECTURE.md`
 
-    ---
+        ---
 
-    ## Reflection
+        ## Reflection
 
-    API documentation helps:
+        API documentation helps:
 
-    * Faster onboarding for new developers
-    * Clear understanding of endpoints and data structure
-    * Easier debugging and testing
-    * Version tracking prevents breaking changes
+        * Faster onboarding for new developers
+        * Clear understanding of endpoints and data structure
+        * Easier debugging and testing
+        * Version tracking prevents breaking changes
