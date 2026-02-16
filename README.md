@@ -1,105 +1,173 @@
-        # RunSOS
+# Flutter Environment Setup and First App Run
 
-        Emergency & Live Community Alert System for runners and cyclists.
+## Project Title
 
-        ## API Documentation
+Flutter Environment Setup and First Emulator Run
 
-       git Postman Collection:
-        `/docs/flutter_firebase_postman.json`
+## System Information
 
-        Version: **1.0.0**
-        Last Updated: **2025-11-13**
-        Authentication: Firebase Token
+OS: Windows 10/11
 
-        ---
+IDE: Android Studio / VS Code
 
-        ## Architecture
+Flutter Version: (paste from flutter --version)
 
-        See: `ARCHITECTURE.md`
+Device: Android Emulator (Pixel 6)
 
-        ---
+## Setup Steps Followed
 
-        ## Responsive UI – Sprint 2
+1. Flutter SDK Installation
 
-        This screen demonstrates a responsive layout built using Flutter that adapts to different screen sizes, device types, and orientations.
+Downloaded Flutter SDK from the official website.
 
-        ### Features
+Extracted to:
 
-        * Phone: Single-column list layout
-        * Tablet/Landscape: Multi-column grid layout
-        * Dynamic padding and font sizes
-        * Adaptive button sizing
+C:\src\flutter
 
-        ### MediaQuery Logic
+Added Flutter to PATH:
 
-        ```dart
-        final width = MediaQuery.of(context).size.width;
-        bool isTablet = width > 600;
-        ```
+C:\src\flutter\bin
 
-        ### LayoutBuilder Usage
+Verified installation:
 
-        LayoutBuilder is used to rebuild UI based on available screen constraints and orientation.
+flutter doctor
 
-        ### Screenshots
+2. Android Studio Setup
 
-        (Add images)
+Installed Android Studio.
 
-        * Phone Portrait
-        * Phone Landscape
-        * Tablet Portrait
-        * Tablet Landscape
+Installed required components:
 
-        ### Reflection
+Android SDK
 
-        Challenges:
+SDK Platform Tools
 
-        * Handling layout differences between phone and tablet
-        * Avoiding overflow in landscape mode
-        * Maintaining consistent spacing and alignment
+AVD Manager
 
-        Benefits of Responsive Design:
+Installed plugins:
 
-        * Better user experience across devices
-        * Supports tablets and large screens
-        * Future-ready for multiple screen sizes
+Flutter
 
-        ---
+Dart
 
-        ## Firebase Integration – Sprint 2
+3. Emulator Configuration
 
-        This screen demonstrates Firebase Authentication and Firestore usage with login, signup, and real-time notes.
+Opened AVD Manager
 
-        ### Screenshots
+Created device:
 
-        (Add images)
+Pixel 6
 
-        * Signup success
-        * Login success
-        * Home screen showing notes
-        * Firebase Console - Authentication
-        * Firebase Console - Firestore data
+Android 13
 
-        ### Reflection
+Started emulator.
 
-        Challenges:
+Verified device:
 
-        * Firebase setup and configuration
-        * Handling async operations
-        * Firestore real-time updates
+flutter devices
 
-        Benefits of Firebase:
+4. First Flutter App
 
-        * No backend needed
-        * Real-time data sync
-        * Secure authentication
-        * Scalable cloud infrastructure
+Created a new project:
 
-        ## Reflection
+flutter create first_flutter_app
+cd first_flutter_app
+flutter run
 
-        API documentation helps:
+Successfully ran the default Flutter counter app on the emulator.
 
-        * Faster onboarding for new developers
-        * Clear understanding of endpoints and data structure
-        * Easier debugging and testing
-        * Version tracking prevents breaking changes
+## Setup Verification
+
+Flutter Doctor Output
+
+(Add screenshot here)
+
+App Running on Emulator
+
+(Add screenshot here)
+
+## Challenges Faced
+
+Initial PATH configuration issue for Flutter.
+
+Android Emulator was slow during first launch.
+
+Flutter Doctor showed missing Android licenses which were fixed using:
+
+flutter doctor --android-licenses
+
+## Reflection
+
+Setting up Flutter helped me understand the complete mobile development environment including SDK configuration, emulator setup, and dependency management. This setup ensures that future Flutter and Firebase projects can be built, tested, and debugged efficiently without environment issues. It also prepares me for real-world mobile development workflows.
+
+## What Screenshots You MUST Add
+
+flutter doctor (all green checks)
+
+Emulator running counter app
+
+If any item is not green:
+
+flutter doctor --android-licenses
+
+## Commands Checklist (Run once)
+
+flutter doctor
+
+flutter doctor --android-licenses
+
+flutter devices
+
+flutter create first_flutter_app
+
+cd first_flutter_app
+
+flutter run
+
+## PR Details
+
+Commit message
+
+setup: completed Flutter SDK installation and first emulator run
+
+PR Title
+
+[Sprint-2] Flutter Environment Setup - TeamName
+
+## PR Description
+
+Include:
+
+Setup steps
+
+Screenshots
+
+Reflection
+
+Video link
+
+## 1-2 Minute Video Script (Use this)
+
+Say:
+
+"This is my Flutter Doctor showing a healthy setup."
+
+"This is my Android emulator running the default Flutter app."
+
+"Flutter SDK, Android Studio, and AVD are successfully configured."
+
+"This environment will be used for upcoming Firebase integration tasks."
+
+Keep it simple. Reviewers do not want a long explanation.
+
+## Pro Tip (Important for your Sprint)
+
+If flutter doctor shows:
+
+Android toolchain
+
+Install SDK from Android Studio
+
+Chrome / Web
+
+Ignore (not required)
