@@ -4,7 +4,7 @@
 
         ## API Documentation
 
-        Postman Collection:
+       git Postman Collection:
         `/docs/flutter_firebase_postman.json`
 
         Version: **1.0.0**
