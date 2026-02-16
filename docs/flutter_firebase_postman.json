@@ -1,0 +1,168 @@
+    {
+    "info": {
+        "name": "RunSOS - Flutter Firebase API Documentation",
+        "description": "Version: 1.0.0\nBase URL: https://your-app.firebaseapp.com\nAuth: Firebase Token\nLast Updated: 2025-11-13\nProject: RunSOS - Emergency & Live Community Alert System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+        "name": "User Login (Firebase Auth)",
+        "request": {
+            "method": "POST",
+            "header": [
+            {
+                "key": "Content-Type",
+                "value": "application/json"
+            }
+            ],
+            "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"user@gmail.com\",\n  \"password\": \"123456\",\n  \"returnSecureToken\": true\n}"
+            },
+            "url": {
+            "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=YOUR_API_KEY",
+            "protocol": "https",
+            "host": [
+                "identitytoolkit",
+                "googleapis",
+                "com"
+            ],
+            "path": [
+                "v1",
+                "accounts:signInWithPassword"
+            ],
+            "query": [
+                {
+                "key": "key",
+                "value": "YOUR_API_KEY"
+                }
+            ]
+            },
+            "description": "Firebase Auth sign-in with email and password."
+        },
+        "response": [
+            {
+            "name": "Example Response",
+            "originalRequest": {
+                "method": "POST",
+                "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=YOUR_API_KEY"
+            },
+            "status": "OK",
+            "code": 200,
+            "_postman_previewlanguage": "json",
+            "body": "{\n  \"idToken\": \"FIREBASE_TOKEN\",\n  \"localId\": \"userId123\"\n}"
+            }
+        ]
+        },
+        {
+        "name": "Create User (Signup)",
+        "request": {
+            "method": "POST",
+            "header": [
+            {
+                "key": "Content-Type",
+                "value": "application/json"
+            }
+            ],
+            "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"user@gmail.com\",\n  \"password\": \"123456\",\n  \"returnSecureToken\": true\n}"
+            },
+            "url": {
+            "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=YOUR_API_KEY",
+            "protocol": "https",
+            "host": [
+                "identitytoolkit",
+                "googleapis",
+                "com"
+            ],
+            "path": [
+                "v1",
+                "accounts:signUp"
+            ],
+            "query": [
+                {
+                "key": "key",
+                "value": "YOUR_API_KEY"
+                }
+            ]
+            },
+            "description": "Firebase Auth sign-up with email and password."
+        },
+        "response": []
+        },
+        {
+        "name": "Create Emergency Alert (Firestore)",
+        "request": {
+            "method": "POST",
+            "header": [
+            {
+                "key": "Authorization",
+                "value": "Bearer FIREBASE_TOKEN"
+            },
+            {
+                "key": "Content-Type",
+                "value": "application/json"
+            }
+            ],
+            "body": {
+            "mode": "raw",
+            "raw": "{\n  \"fields\": {\n    \"userId\": { \"stringValue\": \"user123\" },\n    \"location\": { \"stringValue\": \"17.3850,78.4867\" },\n    \"status\": { \"stringValue\": \"active\" },\n    \"createdAt\": { \"timestampValue\": \"2025-11-13T10:00:00Z\" }\n  }\n}"
+            },
+            "url": {
+            "raw": "https://firestore.googleapis.com/v1/projects/YOUR_PROJECT/databases/(default)/documents/alerts",
+            "protocol": "https",
+            "host": [
+                "firestore",
+                "googleapis",
+                "com"
+            ],
+            "path": [
+                "v1",
+                "projects",
+                "YOUR_PROJECT",
+                "databases",
+                "(default)",
+                "documents",
+                "alerts"
+            ]
+            },
+            "description": "Create a new alert document in Firestore."
+        },
+        "response": []
+        },
+        {
+        "name": "Upload Image (Firebase Storage)",
+        "request": {
+            "method": "POST",
+            "body": {
+            "mode": "formdata",
+            "formdata": [
+                {
+                "key": "file",
+                "type": "file",
+                "description": "Select an image file to upload."
+                }
+            ]
+            },
+            "url": {
+            "raw": "https://firebasestorage.googleapis.com/v0/b/YOUR_PROJECT.appspot.com/o",
+            "protocol": "https",
+            "host": [
+                "firebasestorage",
+                "googleapis",
+                "com"
+            ],
+            "path": [
+                "v0",
+                "b",
+                "YOUR_PROJECT.appspot.com",
+                "o"
+            ]
+            },
+            "description": "Upload an image to Firebase Storage using form-data."
+        },
+        "response": []
+        }
+    ]
+    }
