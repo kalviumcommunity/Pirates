@@ -171,3 +171,27 @@ Install SDK from Android Studio
 Chrome / Web
 
 Ignore (not required)
+
+## Project Structure Overview
+
+**Project Title:** Flutter Environment Setup and First Emulator Run
+
+I documented the default Flutter folder layout and recommended `lib/` organization in `PROJECT_STRUCTURE.md`.
+
+- **Docs file:** [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
+
+### Folder summary (short)
+- `lib/`: Dart code and app entry (`main.dart`).
+- `android/` and `ios/`: Platform-specific build files.
+- `assets/`: Static files (declare in `pubspec.yaml`).
+- `test/`: Automated tests.
+
+Add screenshots of `flutter doctor` and the emulator in the sections above when submitting your PR.
+
+---
+
+### Next steps for submission
+1. Commit these docs with message: `docs: added Flutter project structure explanation and folder overview`.
+2. Push a branch and create a PR titled: `[Sprint-2] Flutter Folder Structure Exploration – TeamName`.
+3. Record a 1–2 minute video walkthrough and include the link in the PR description.
+
