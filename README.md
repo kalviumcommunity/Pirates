@@ -1,62 +1,87 @@
-# Widget Tree & Reactive UI Demo
+# Stateless vs Stateful Widgets Demo
 
-This project demonstrates Flutter's Widget Tree structure and its Reactive UI model. The app features a profile card where clicking a button toggles additional details, showcasing how `setState()` triggers UI updates.
+This interactive demo illustrates the fundamental difference between **Stateless** and **Stateful** widgets in Flutter. It combines both types in a single screen to demonstrate their behavior and usage.
 
-## Widget Tree Hierarchy
+## Concept Overview
 
-Below is a representation of the widget tree for the `ProfileScreen` widget used in this demo:
+### 1. Stateless Widgets
+A `StatelessWidget` describes part of the user interface which is immutable. Once built, its properties cannot change. They are ideal for static content like icons, labels, or layout structures.
 
+**Example from this project:** `StaticHeaderWidget`
+> Displays a welcome message and subtitle. It receives data in its constructor but never changes dynamically.
+
+```dart
+class StaticHeaderWidget extends StatelessWidget {
+  final String title;
+  
+  const StaticHeaderWidget({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title); // This text will remain constant
+  }
+}
 ```
-MaterialApp
- ┗ Scaffold
-    ┣ AppBar (Title: "Widget Tree & Reactive UI Demo")
-    ┗ Body (Center)
-       ┗ Padding
-          ┗ Column
-             ┣ CircleAvatar (Profile Icon)
-             ┣ SizedBox (Spacing)
-             ┣ Text ("John Doe")
-             ┣ Text ("Flutter Developer")
-             ┣ SizedBox (Spacing)
-             ┣ [Reactive Section] (Conditionally renders Container or Text)
-             ┣ SizedBox (Spacing)
-             ┗ ElevatedButton (Toggle Button)
+
+### 2. Stateful Widgets
+A `StatefulWidget` can change dynamically. It maintains a `State` object that stores mutable data. When `setState()` is called, the widget rebuilds to reflect the new data.
+
+**Example from this project:** `InteractiveCounterWidget`
+> Maintains a counter variable (`_counter`). When the button is pressed, the state updates, and the number on the screen increments.
+
+```dart
+class InteractiveCounterWidget extends StatefulWidget {
+  @override
+  State<InteractiveCounterWidget> createState() => _InteractiveCounterWidgetState();
+}
+
+class _InteractiveCounterWidgetState extends State<InteractiveCounterWidget> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++; // Updates the state and rebuilds the UI
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('$_counter'),
+        ElevatedButton(onPressed: _incrementCounter, child: Text('Increment')),
+      ],
+    );
+  }
+}
 ```
-
-## Reactive UI Model Explained
-
-### What is the Widget Tree?
-In Flutter, everything is a widget. The UI is built by composing widgets into a tree structure. Each widget describes part of the user interface. The framework then uses this tree to construct the underlying element and render trees that actually paint pixels on the screen. 
-
-### How does the Reactive Model work?
-Flutter is reactive, meaning the UI is a function of the state. When the state of the app changes (e.g., a variable is updated), the framework rebuilds the widget tree to reflect the new state.
-
-In this demo:
-1.  We have a boolean state variable `_showDetails`.
-2.  When the "Show Details" button is pressed, `setState()` is called.
-3.  `setState()` notifies the framework that the internal state of this object has changed.
-4.  Flutter calls the `build` method again for this `State` object.
-5.  The widget tree is rebuilt with the new value of `_showDetails` (showing either the detailed text box or the prompt text).
-6.  Only the parts of the UI that need to change are updated efficiently.
-
-### Why is this efficient?
-Flutter doesn't redraw the entire screen from scratch every time. Instead, it compares the old widget tree with the new one and determines the minimal set of changes required to update the underlying render tree. This makes UI updates extremely fast and smooth.
 
 ## Screenshots
 
-| Initial State | Updated State (After Tap) |
+| Initial State | Updated State (After Interaction) |
 | :---: | :---: |
 | ![Initial UI](path/to/screenshot_1.png) | ![Updated UI](path/to/screenshot_2.png) |
-| *Button shows "Show Details"* | *Details are visible, button shows "Hide Details"* |
+| *Counter starts at 0* | *Counter increments, background color changes* |
 
-*(Note: Please replace `path/to/screenshot_1.png` and `path/to/screenshot_2.png` with your actual screenshot files)*
+## Reflection
+
+### When to use Stateless Widgets?
+- Use them for UI parts that depend only on their configuration configuration (parameters passed in constructor) and do not need to change over time.
+- Examples: Lists, Cards, Headers, Icons.
+- **Benefit**: They are slightly more lightweight since they don't need to manage state objects.
+
+### When are Stateful Widgets necessary?
+- Use them when a part of the UI needs to change dynamically in response to user interaction, data updates, or animations.
+- Examples: Forms, Checkboxes, Counters, Sliders.
+- **Benefit**: They allow the app to be interactive and responsive.
+
+### How does Flutter optimize updates?
+Flutter keeps the UI performant by only rebuilding the widgets that need to be updated. When `setState()` is called within a Stateful widget, only *that specific widget* and its children are rebuilt, not the entire application.
 
 ## How to Run
 
 To run this specific demo, use the following command:
 
 ```bash
-flutter run -t lib/widget_tree_demo.dart
+flutter run -t lib/screens/stateless_stateful_demo.dart
 ```
-
-This ensures you are running the Widget Tree Demo instead of the main app entry point.
