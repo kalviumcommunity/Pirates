@@ -1,197 +1,62 @@
-# Flutter Environment Setup and First App Run
+# Widget Tree & Reactive UI Demo
 
-## Project Title
+This project demonstrates Flutter's Widget Tree structure and its Reactive UI model. The app features a profile card where clicking a button toggles additional details, showcasing how `setState()` triggers UI updates.
 
-Flutter Environment Setup and First Emulator Run
+## Widget Tree Hierarchy
 
-## System Information
+Below is a representation of the widget tree for the `ProfileScreen` widget used in this demo:
 
-OS: Windows 10/11
+```
+MaterialApp
+ ┗ Scaffold
+    ┣ AppBar (Title: "Widget Tree & Reactive UI Demo")
+    ┗ Body (Center)
+       ┗ Padding
+          ┗ Column
+             ┣ CircleAvatar (Profile Icon)
+             ┣ SizedBox (Spacing)
+             ┣ Text ("John Doe")
+             ┣ Text ("Flutter Developer")
+             ┣ SizedBox (Spacing)
+             ┣ [Reactive Section] (Conditionally renders Container or Text)
+             ┣ SizedBox (Spacing)
+             ┗ ElevatedButton (Toggle Button)
+```
 
-IDE: Android Studio / VS Code
+## Reactive UI Model Explained
 
-Flutter Version: (paste from flutter --version)
+### What is the Widget Tree?
+In Flutter, everything is a widget. The UI is built by composing widgets into a tree structure. Each widget describes part of the user interface. The framework then uses this tree to construct the underlying element and render trees that actually paint pixels on the screen. 
 
-Device: Android Emulator (Pixel 6)
+### How does the Reactive Model work?
+Flutter is reactive, meaning the UI is a function of the state. When the state of the app changes (e.g., a variable is updated), the framework rebuilds the widget tree to reflect the new state.
 
-## Setup Steps Followed
+In this demo:
+1.  We have a boolean state variable `_showDetails`.
+2.  When the "Show Details" button is pressed, `setState()` is called.
+3.  `setState()` notifies the framework that the internal state of this object has changed.
+4.  Flutter calls the `build` method again for this `State` object.
+5.  The widget tree is rebuilt with the new value of `_showDetails` (showing either the detailed text box or the prompt text).
+6.  Only the parts of the UI that need to change are updated efficiently.
 
-1. Flutter SDK Installation
+### Why is this efficient?
+Flutter doesn't redraw the entire screen from scratch every time. Instead, it compares the old widget tree with the new one and determines the minimal set of changes required to update the underlying render tree. This makes UI updates extremely fast and smooth.
 
-Downloaded Flutter SDK from the official website.
+## Screenshots
 
-Extracted to:
+| Initial State | Updated State (After Tap) |
+| :---: | :---: |
+| ![Initial UI](path/to/screenshot_1.png) | ![Updated UI](path/to/screenshot_2.png) |
+| *Button shows "Show Details"* | *Details are visible, button shows "Hide Details"* |
 
-C:\src\flutter
+*(Note: Please replace `path/to/screenshot_1.png` and `path/to/screenshot_2.png` with your actual screenshot files)*
 
-Added Flutter to PATH:
+## How to Run
 
-C:\src\flutter\bin
+To run this specific demo, use the following command:
 
-Verified installation:
+```bash
+flutter run -t lib/widget_tree_demo.dart
+```
 
-flutter doctor
-
-2. Android Studio Setup
-
-Installed Android Studio.
-
-Installed required components:
-
-Android SDK
-
-SDK Platform Tools
-
-AVD Manager
-
-Installed plugins:
-
-Flutter
-
-Dart
-
-3. Emulator Configuration
-
-Opened AVD Manager
-
-Created device:
-
-Pixel 6
-
-Android 13
-
-Started emulator.
-
-Verified device:
-
-flutter devices
-
-4. First Flutter App
-
-Created a new project:
-
-flutter create first_flutter_app
-cd first_flutter_app
-flutter run
-
-Successfully ran the default Flutter counter app on the emulator.
-
-## Setup Verification
-
-Flutter Doctor Output
-
-(Add screenshot here)
-
-App Running on Emulator
-
-(Add screenshot here)
-
-## Challenges Faced
-
-Initial PATH configuration issue for Flutter.
-
-Android Emulator was slow during first launch.
-
-Flutter Doctor showed missing Android licenses which were fixed using:
-
-flutter doctor --android-licenses
-
-## Reflection
-
-Setting up Flutter helped me understand the complete mobile development environment including SDK configuration, emulator setup, and dependency management. This setup ensures that future Flutter and Firebase projects can be built, tested, and debugged efficiently without environment issues. It also prepares me for real-world mobile development workflows.
-
-## What Screenshots You MUST Add
-
-flutter doctor (all green checks)
-
-Emulator running counter app
-
-If any item is not green:
-
-flutter doctor --android-licenses
-
-## Commands Checklist (Run once)
-
-flutter doctor
-
-flutter doctor --android-licenses
-
-flutter devices
-
-flutter create first_flutter_app
-
-cd first_flutter_app
-
-flutter run
-
-## PR Details
-
-Commit message
-
-setup: completed Flutter SDK installation and first emulator run
-
-PR Title
-
-[Sprint-2] Flutter Environment Setup - TeamName
-
-## PR Description
-
-Include:
-
-Setup steps
-
-Screenshots
-
-Reflection
-
-Video link
-
-## 1-2 Minute Video Script (Use this)
-
-Say:
-
-"This is my Flutter Doctor showing a healthy setup."
-
-"This is my Android emulator running the default Flutter app."
-
-"Flutter SDK, Android Studio, and AVD are successfully configured."
-
-"This environment will be used for upcoming Firebase integration tasks."
-
-Keep it simple. Reviewers do not want a long explanation.
-
-## Pro Tip (Important for your Sprint)
-
-If flutter doctor shows:
-
-Android toolchain
-
-Install SDK from Android Studio
-
-Chrome / Web
-
-Ignore (not required)
-
-## Project Structure Overview
-
-**Project Title:** Flutter Environment Setup and First Emulator Run
-
-I documented the default Flutter folder layout and recommended `lib/` organization in `PROJECT_STRUCTURE.md`.
-
-- **Docs file:** [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
-
-### Folder summary (short)
-- `lib/`: Dart code and app entry (`main.dart`).
-- `android/` and `ios/`: Platform-specific build files.
-- `assets/`: Static files (declare in `pubspec.yaml`).
-- `test/`: Automated tests.
-
-Add screenshots of `flutter doctor` and the emulator in the sections above when submitting your PR.
-
----
-
-### Next steps for submission
-1. Commit these docs with message: `docs: added Flutter project structure explanation and folder overview`.
-2. Push a branch and create a PR titled: `[Sprint-2] Flutter Folder Structure Exploration – TeamName`.
-3. Record a 1–2 minute video walkthrough and include the link in the PR description.
-
+This ensures you are running the Widget Tree Demo instead of the main app entry point.
