@@ -195,4 +195,57 @@ ElevatedButton(
 * This setup lets the team add more pages by simply registering new routes
   without changing the push/pop logic scattered throughout the app.
 
+---
+
+## Responsive Layout Using Rows, Columns & Containers
+
+A new screen (`ResponsiveLayout`) demonstrates combining `Row`, `Column`, and
+`Container` widgets along with `MediaQuery` to adapt to various screen widths.
+The layout stack is:
+
+```
+Scaffold
+ ┣ AppBar
+ ┗ Body (Container)
+    ┗ Column
+       ┣ Header (Container)
+       ┣ Expanded
+       ┃ ┗ Row or Column (depending on width)
+       ┃   ┣ Left Panel
+       ┃   ┗ Right Panel
+       ┗ Footer (shown on narrow screens)
+```
+
+The main route (`/responsive`) is linked from the login screen via a button.
+On wide screens (>600px) the panels sit side‑by‑side; on narrow phones they
+stack vertically. MediaQuery is used to compute `screenWidth` and conditionally
+switch between `Row` and `Column` layouts.
+
+### Key code snippet
+
+```dart
+final screenWidth = MediaQuery.of(context).size.width;
+final bool isWide = screenWidth > 600;
+
+Expanded(
+  child: isWide
+      ? Row(...)
+      : Column(...),
+),
+```
+
+### Screenshots (placeholders)
+
+- Wide/tablet view (`docs/responsive_tablet.png`)
+- Narrow/phone view (`docs/responsive_phone.png`)
+
+### Reflection
+
+* Responsive design ensures a consistent experience on phones and tablets. It
+  prevents overflow errors and makes the UI feel native to each form factor.
+* Challenges included managing spacing when switching between horizontal and
+  vertical layouts; `Expanded` and `SizedBox` were instrumental for balance.
+* `MediaQuery` combined with `Expanded` allows layouts to reflow without manual
+  width calculations, making the UI flexible as new panels are added.
+
 

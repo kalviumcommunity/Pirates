@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'screens/login_screen.dart';
 import 'screens/navigation_home.dart';
 import 'screens/navigation_second.dart';
+import 'screens/responsive_layout.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/': (_) => const LoginScreen(),
         '/navHome': (_) => const NavigationHome(),
         '/navSecond': (_) => const NavigationSecond(),
+        '/responsive': (_) => const ResponsiveLayout(),
       },
     );
   }
