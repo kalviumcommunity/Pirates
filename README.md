@@ -85,3 +85,46 @@ To run this specific demo, use the following command:
 ```bash
 flutter run -t lib/screens/stateless_stateful_demo.dart
 ```
+
+---
+
+## Hot Reload, Debug Console & DevTools Demonstration
+
+This section documents the steps taken to complete the Sprint‑2 assignment on using Flutter's
+Hot Reload, Debug Console, and DevTools together.
+
+### Project Used
+`lib/screens/stateless_stateful_demo.dart` (counter example) was launched with
+`flutter run`.
+
+### Steps Performed
+1. Launched the app in debug mode from VS Code (`flutter run`).
+2. Modified the text in `InteractiveCounterWidget` from
+   `Text('$_counter')` to `Text('Counter: \\$_counter')`, saved the file, and
+   pressed **r** in the terminal (or clicked the ⚡ Hot Reload button). The UI
+   updated immediately without restarting.
+3. Added a `debugPrint('increment pressed');` call inside `_incrementCounter()`
+   and interacted with the button; the message appeared in the Debug Console.
+4. Opened Flutter DevTools via the command palette (`> Flutter: Open DevTools`)
+   and used the **Widget Inspector** to examine the widget tree, then switched to
+   the **Performance** tab to view frame rendering graphs.
+
+### Screenshots
+*(place your own images in the repo and update paths accordingly)*
+
+- Hot reload before/after: `docs/hot_reload_before.png` / `docs/hot_reload_after.png`
+- Debug console log: `docs/debug_console.png`
+- DevTools widget inspector: `docs/devtools_inspector.png`
+
+### Reflection
+- **Hot Reload** greatly speeds up UI iteration by preserving state while applying
+  code changes. It's invaluable when fine‑tuning layouts or colors.
+- **Debug Console** provides immediate visibility into runtime behavior and
+  errors; using `debugPrint` keeps logs tidy.
+- **DevTools** lets you visually inspect the widget hierarchy and profile
+  performance, which is essential for diagnosing rendering bottlenecks.
+
+These tools together create a highly productive development workflow and they
+can easily be shared in a team (via screenshots or by opening DevTools on a
+remote session).
+
