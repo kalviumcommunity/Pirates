@@ -6,6 +6,7 @@ import 'screens/navigation_home.dart';
 import 'screens/navigation_second.dart';
 import 'screens/responsive_layout.dart';
 import 'screens/scrollable_views.dart';
+import 'screens/user_input_form.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/navSecond': (_) => const NavigationSecond(),
         '/responsive': (_) => const ResponsiveLayout(),
         '/scrollable': (_) => const ScrollableViews(),
+        '/userForm': (_) => const UserInputForm(),
       },
     );
   }

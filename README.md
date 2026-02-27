@@ -320,4 +320,68 @@ SizedBox(
 * Grid layouts improve aesthetics by presenting items in a structured matrix,
   ideal for galleries or catalogs.
 
+---
+
+## User Input Form & Validation
+
+A new screen (`UserInputForm`) provides two text fields for name and email and
+validates the entries when the user taps *Submit*. It demonstrates basic form
+handling, validators, and feedback using a `SnackBar`. Navigate via the login
+screen button labelled *User input form demo*.
+
+### Code snippet
+
+```dart
+final _formKey = GlobalKey<FormState>();
+final _nameController = TextEditingController();
+final _emailController = TextEditingController();
+
+Form(
+  key: _formKey,
+  child: Column(
+    children: [
+      TextFormField(
+        controller: _nameController,
+        decoration: InputDecoration(labelText: 'Name'),
+        validator: (value) =>
+            value == null || value.isEmpty ? 'Enter your name' : null,
+      ),
+      TextFormField(
+        controller: _emailController,
+        decoration: InputDecoration(labelText: 'Email'),
+        validator: (value) {
+          if (value == null || value.isEmpty) return 'Enter your email';
+          if (!value.contains('@')) return 'Enter a valid email';
+          return null;
+        },
+      ),
+      ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Form submitted successfully!')),
+            );
+          }
+        },
+        child: Text('Submit'),
+      ),
+    ],
+  ),
+);
+```
+
+### Screenshots
+
+- Validation errors when fields are empty: `docs/form_error.png`
+- Successful submission message: `docs/form_success.png`
+
+### Reflection
+
+* Input validation prevents bad data and improves user trust. Immediate
+  feedback keeps users informed about what’s required.
+* `FormState` centralizes validation and simplifies checking multiple fields
+  with a single call to `validate()`.
+* `SnackBar` provides non‑intrusive feedback; other options include dialogs or
+  inline messages depending on the app’s style.
+
 
