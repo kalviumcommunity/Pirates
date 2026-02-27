@@ -5,6 +5,7 @@ import 'screens/login_screen.dart';
 import 'screens/navigation_home.dart';
 import 'screens/navigation_second.dart';
 import 'screens/responsive_layout.dart';
+import 'screens/scrollable_views.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/navHome': (_) => const NavigationHome(),
         '/navSecond': (_) => const NavigationSecond(),
         '/responsive': (_) => const ResponsiveLayout(),
+        '/scrollable': (_) => const ScrollableViews(),
       },
     );
   }

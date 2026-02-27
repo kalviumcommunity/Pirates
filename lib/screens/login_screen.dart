@@ -98,6 +98,12 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: const Text('Responsive layout demo'),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/scrollable');
+              },
+              child: const Text('Scrollable views demo'),
+            ),
           ],
         ),
       ),
