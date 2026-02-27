@@ -248,4 +248,76 @@ Expanded(
 * `MediaQuery` combined with `Expanded` allows layouts to reflow without manual
   width calculations, making the UI flexible as new panels are added.
 
+---
+
+## Scrollable Views with ListView & GridView
+
+A new screen (`ScrollableViews`) showcases a horizontally scrolling list and a
+fixed grid, using `ListView.builder` and `GridView.builder` inside a
+`SingleChildScrollView` so both components can appear on the same page. The
+route `/scrollable` is reachable from the login screen.
+
+### Code snippets
+
+**Horizontal `ListView.builder`**
+```dart
+SizedBox(
+  height: 200,
+  child: ListView.builder(
+    scrollDirection: Axis.horizontal,
+    itemCount: 20,
+    itemBuilder: (context, index) {
+      return Container(
+        width: 150,
+        margin: const EdgeInsets.all(8),
+        color: Colors.teal[100 * ((index % 8) + 2)],
+        child: Center(child: Text('Card $index')),
+      );
+    },
+  ),
+),
+```
+
+**Vertical `GridView.builder`**
+```dart
+SizedBox(
+  height: 400,
+  child: GridView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+    ),
+    itemCount: 20,
+    itemBuilder: (context, index) {
+      return Container(
+        color: Colors.primaries[index % Colors.primaries.length],
+        child: Center(
+          child: Text('Tile $index',
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold)),
+        ),
+      );
+    },
+  ),
+),
+```
+
+### Screenshots
+
+- Horizontal list scrolling: `docs/scroll_list.png`
+- Grid view in same screen: `docs/scroll_grid.png`
+
+### Reflection
+
+* Flutter lazily builds list/grid items only when they come into view, which
+  keeps memory usage low for large datasets. This is why `ListView.builder`
+  and `GridView.builder` are preferred for dynamic content.
+* The `builder` constructors reuse widgets and avoid inflating an entire list
+  upfront, which dramatically improves performance.
+* Grid layouts improve aesthetics by presenting items in a structured matrix,
+  ideal for galleries or catalogs.
+
 
