@@ -1,4 +1,144 @@
-# State Management with setState
+# Reusable Custom Widgets
+
+This demo app showcases how to build and reuse custom widgets across multiple screens to improve code organization and maintain design consistency.
+
+## Concept Overview
+
+### What are Custom Widgets?
+Custom widgets are classes that combine existing Flutter widgets to create reusable UI components. They can be stateless (immutable) or stateful (dynamic).
+
+**Stateless Custom Widget:** Best for static layouts that don't change after being built (e.g., `InfoCard`).
+
+**Stateful Custom Widget:** Best for widgets that change based on user interaction (e.g., `LikeButton`).
+
+## Custom Widgets Created
+
+### 1. InfoCard (Stateless)
+A reusable card widget that displays an icon, title, and subtitle.
+
+```dart
+class InfoCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+  const InfoCard({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(12),
+      elevation: 4,
+      child: ListTile(
+        leading: Icon(icon, color: Colors.teal, size: 32),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(subtitle),
+      ),
+    );
+  }
+}
+```
+
+**Usage Example (HomeScreen):**
+
+```dart
+InfoCard(
+  title: 'Add New Note',
+  subtitle: 'Create and manage your notes',
+  icon: Icons.note_add,
+)
+```
+
+### 2. LikeButton (Stateful)
+A reusable interactive button that toggles between liked and unliked states.
+
+```dart
+class LikeButton extends StatefulWidget {
+  const LikeButton({super.key});
+
+  @override
+  State<LikeButton> createState() => _LikeButtonState();
+}
+
+class _LikeButtonState extends State<LikeButton> {
+  bool _isLiked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        _isLiked ? Icons.favorite : Icons.favorite_border,
+        color: _isLiked ? Colors.red : Colors.grey,
+      ),
+      onPressed: () {
+        setState(() {
+          _isLiked = !_isLiked;
+        });
+      },
+    );
+  }
+}
+```
+
+**Usage Example (Multiple Screens):**
+
+```dart
+Row(
+  children: [
+    Expanded(
+      child: ElevatedButton(
+        onPressed: () => _handleAddNote(user.uid),
+        child: const Text('Add Note'),
+      ),
+    ),
+    const SizedBox(width: 8),
+    const LikeButton(),
+  ],
+)
+```
+
+## Reusability Across Screens
+
+The same custom widgets are imported and used in multiple screens:
+
+- [HomeScreen](lib/screens/home_screen.dart) – Uses `InfoCard` and `LikeButton`
+- [ReusableWidgetsDemo](lib/screens/reusable_widgets_demo.dart) – Showcases both widgets in a list
+
+This keeps the design consistent and eliminates duplicate code.
+
+## Screenshots
+
+| InfoCard Examples | LikeButton Interaction |
+| :---: | :---: |
+| ![InfoCard Display](path/to/infocard_screen.png) | ![LikeButton Toggle](path/to/likebutton_screen.png) |
+| *Same widget, different data* | *Stateful widget reused multiple times* |
+
+## Reflection
+
+### How do reusable widgets improve code organization?
+Custom widgets encapsulate UI logic and styling, reducing repetition. Changes to widget design only need to be made in one place, improving maintainability and consistency across screens.
+
+### Why is modularity important in team-based development?
+Modular widgets allow team members to work independently on different features without conflicts. Clear widget contracts (props/parameters) make integration seamless and reduce integration issues.
+
+### What challenges did you face while refactoring into widgets?
+Common challenges include identifying the right level of abstraction, deciding which props to expose, and understanding when to use stateless vs stateful widgets. Testing reusability across different contexts helps validate widget design.
+
+## How to Run
+
+To run the reusable widgets demo:
+
+```bash
+flutter run -t lib/screens/reusable_widgets_demo.dart
+```
+
+---
+
+# Previous Lesson: State Management with setState
 
 This demo app shows how local state changes with `setState()` in a `StatefulWidget`. It includes a counter with increment/decrement actions and a conditional background color when the count reaches a threshold.
 
