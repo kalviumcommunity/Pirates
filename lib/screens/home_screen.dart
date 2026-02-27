@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
+import '../widgets/info_card.dart';
+import '../widgets/like_button.dart';
 import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -85,17 +87,28 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            InfoCard(
+              title: 'Add New Note',
+              subtitle: 'Create and manage your notes',
+              icon: Icons.note_add,
+            ),
+            const SizedBox(height: 12),
             TextField(
               controller: noteController,
               decoration: const InputDecoration(labelText: 'New note'),
             ),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => _handleAddNote(user.uid),
-                child: const Text('Add Note'),
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _handleAddNote(user.uid),
+                    child: const Text('Add Note'),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const LikeButton(),
+              ],
             ),
             const SizedBox(height: 16),
             Expanded(
