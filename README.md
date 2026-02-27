@@ -1,4 +1,153 @@
-# Reusable Custom Widgets
+# Responsive Design with MediaQuery and LayoutBuilder
+
+This demo app demonstrates how to create adaptive UIs that work seamlessly across different device sizes and orientations using `MediaQuery` and `LayoutBuilder`.
+
+## Concept Overview
+
+### What is Responsive Design?
+Responsive design allows your Flutter app to adapt to any device size or orientation by using flexible layout rules instead of fixed pixel dimensions. This ensures smooth scaling on phones, tablets, and future devices.
+
+**Benefits:**
+- Prevents UI clipping and overflow issues
+- Ensures consistent experience across devices
+- Makes apps future-ready for tablets and foldables
+- Improves user experience with proportional scaling
+
+## Key Concepts & Code Snippets
+
+### 1. MediaQuery for Screen Dimensions
+`MediaQuery` provides real-time information about screen size, orientation, and device padding.
+
+```dart
+final screenWidth = MediaQuery.of(context).size.width;
+final screenHeight = MediaQuery.of(context).size.height;
+
+Container(
+  width: screenWidth * 0.8,  // 80% of screen width
+  height: screenHeight * 0.1, // 10% of screen height
+  color: Colors.teal,
+  child: const Center(child: Text('Responsive Container')),
+);
+```
+
+**Key Methods:**
+- `MediaQuery.of(context).size.width` – Get screen width
+- `MediaQuery.of(context).size.height` – Get screen height
+- `MediaQuery.of(context).orientation` – Check portrait/landscape
+
+### 2. LayoutBuilder for Conditional Layouts
+`LayoutBuilder` helps define different UI structures based on available screen space. It provides layout constraints to switch between mobile and tablet designs.
+
+```dart
+LayoutBuilder(
+  builder: (context, constraints) {
+    if (constraints.maxWidth < 600) {
+      // Mobile Layout: Vertical stacking
+      return Column(
+        children: [
+          Text('Mobile Layout'),
+          Icon(Icons.phone_android, size: 80),
+        ],
+      );
+    } else {
+      // Tablet Layout: Horizontal arrangement
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Tablet Layout'),
+          SizedBox(width: 20),
+          Icon(Icons.tablet, size: 100),
+        ],
+      );
+    }
+  },
+);
+```
+
+### 3. Combining Both for Advanced Responsiveness
+Use `MediaQuery` for proportional sizing and `LayoutBuilder` for structural adaptation.
+
+```dart
+LayoutBuilder(
+  builder: (context, constraints) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isMobile = constraints.maxWidth < 600;
+
+    return isMobile
+        ? Column(
+            children: [
+              Container(
+                width: screenWidth * 0.8,
+                height: screenHeight * 0.12,
+                color: Colors.tealAccent,
+                child: const Center(child: Text('Mobile View')),
+              ),
+            ],
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: screenWidth * 0.35,
+                height: screenHeight * 0.15,
+                color: Colors.orangeAccent,
+                child: const Center(child: Text('Tablet Left')),
+              ),
+              Container(
+                width: screenWidth * 0.35,
+                height: screenHeight * 0.15,
+                color: Colors.lightBlueAccent,
+                child: const Center(child: Text('Tablet Right')),
+              ),
+            ],
+          );
+  },
+);
+```
+
+## Implementation Details
+
+The [ResponsiveDesignDemo](lib/screens/responsive_design_demo.dart) screen demonstrates:
+
+- **Proportional Sizing:** Containers use percentage-based dimensions
+- **Layout Switching:** Column for mobile, Row for tablet
+- **Dynamic Typography:** Font sizes scale based on device type
+- **Screen Info Display:** Real-time display of device dimensions and layout type
+
+## Screenshots
+
+| Mobile View (Portrait) | Tablet View (Landscape) |
+| :---: | :---: |
+| ![Mobile Layout](path/to/mobile_responsive.png) | ![Tablet Layout](path/to/tablet_responsive.png) |
+| *Column layout with 80% width* | *Row layout with dual panels* |
+
+## Reflection
+
+### How do these tools make your UI more adaptive?
+`MediaQuery` provides real-time device dimensions for proportional sizing, while `LayoutBuilder` enables structural changes based on available space. Together, they ensure your UI scales gracefully and reorganizes logically across all device sizes.
+
+### Why is responsive design crucial for real-world Flutter apps?
+Modern apps must support diverse devices: phones, tablets, foldables, and desktops. Responsive design eliminates the need to maintain separate UIs for different screen sizes and provides a seamless user experience regardless of device.
+
+### What challenges did you face when testing across different screen sizes?
+Common challenges include:
+- Ensuring text doesn't overflow on small screens
+- Maintaining consistent spacing across devices
+- Managing adaptive layouts without performance degradation
+- Testing breakpoints (e.g., when to switch from mobile to tablet layout)
+
+## How to Run
+
+To run the responsive design demo:
+
+```bash
+flutter run -t lib/screens/responsive_design_demo.dart
+```
+
+---
+
+# Previous Lesson: Reusable Custom Widgets
 
 This demo app showcases how to build and reuse custom widgets across multiple screens to improve code organization and maintain design consistency.
 
