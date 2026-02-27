@@ -85,6 +85,13 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: const Text('Create an account'),
             ),
+            TextButton(
+              onPressed: () {
+                // navigate using named routes to the simple demo screens
+                Navigator.pushNamed(context, '/navHome');
+              },
+              child: const Text('Navigation demo (named routes)'),
+            ),
           ],
         ),
       ),

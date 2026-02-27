@@ -128,3 +128,71 @@ These tools together create a highly productive development workflow and they
 can easily be shared in a team (via screenshots or by opening DevTools on a
 remote session).
 
+---
+
+## Multi‑Screen Navigation using Navigator and Named Routes
+
+The sample project now includes a lightweight navigation demo that sits
+alongside the existing authentication flow. The relevant files are:
+
+* `lib/screens/navigation_home.dart`
+* `lib/screens/navigation_second.dart`
+* Updates to `lib/main.dart` (routes definition) and `lib/screens/login_screen.dart`
+  (button to trigger the demo).
+
+### Code snippets
+
+**main.dart**
+```dart
+return MaterialApp(
+  debugShowModeBanner: false,
+  initialRoute: '/',
+  routes: {
+    '/': (_) => const LoginScreen(),
+    '/navHome': (_) => const NavigationHome(),
+    '/navSecond': (_) => const NavigationSecond(),
+  },
+);
+```
+
+**navigation_home.dart**
+```dart
+ElevatedButton(
+  onPressed: () {
+    Navigator.pushNamed(context, '/navSecond',
+        arguments: 'Hello from Home!');
+  },
+  child: const Text('Go to Second Screen'),
+);
+```
+
+**navigation_second.dart**
+```dart
+final message = ModalRoute.of(context)!.settings.arguments as String?;
+...
+ElevatedButton(
+  onPressed: () {
+    Navigator.pop(context);
+  },
+  child: const Text('Back to Home'),
+);
+```
+
+### Screenshots (add your own)
+
+- Home screen with the "Navigation demo (named routes)" button.
+- Second screen showing the passed argument.
+- Transition before/after via the Flutter UI.
+
+### Reflection
+
+* **Navigator stack** – Flutter keeps screens in a push/pop stack; calling
+  `pushNamed` places a new route on top, and `pop` removes it, returning to the
+  previous screen automatically.
+* **Named routes** – Useful for decoupling navigation logic from widget
+  constructors; centralised in `MaterialApp` makes refactoring easier in large
+  apps.
+* This setup lets the team add more pages by simply registering new routes
+  without changing the push/pop logic scattered throughout the app.
+
+
