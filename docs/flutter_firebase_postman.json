@@ -20,7 +20,7 @@
                 "raw": "{\n  \"email\": \"user@gmail.com\",\n  \"password\": \"123456\",\n  \"returnSecureToken\": true\n}"
                 },
                 "url": {
-                "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=YOUR_API_KEY",
+                "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{FIREBASE_WEB_API_KEY}}",
                 "protocol": "https",
                 "host": [
                     "identitytoolkit",
@@ -34,7 +34,7 @@
                 "query": [
                     {
                     "key": "key",
-                    "value": "YOUR_API_KEY"
+                    "value": "{{FIREBASE_WEB_API_KEY}}"
                     }
                 ]
                 },
@@ -45,12 +45,12 @@
                 "name": "Example Response",
                 "originalRequest": {
                     "method": "POST",
-                    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=YOUR_API_KEY"
+                    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{FIREBASE_WEB_API_KEY}}"
                 },
                 "status": "OK",
                 "code": 200,
                 "_postman_previewlanguage": "json",
-                "body": "{\n  \"idToken\": \"FIREBASE_TOKEN\",\n  \"localId\": \"userId123\"\n}"
+                "body": "{\n  \"idToken\": \"EXAMPLE_ID_TOKEN\",\n  \"localId\": \"userId123\"\n}"
                 }
             ]
             },
@@ -69,7 +69,7 @@
                 "raw": "{\n  \"email\": \"user@gmail.com\",\n  \"password\": \"123456\",\n  \"returnSecureToken\": true\n}"
                 },
                 "url": {
-                "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=YOUR_API_KEY",
+                "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={{FIREBASE_WEB_API_KEY}}",
                 "protocol": "https",
                 "host": [
                     "identitytoolkit",
@@ -83,7 +83,7 @@
                 "query": [
                     {
                     "key": "key",
-                    "value": "YOUR_API_KEY"
+                    "value": "{{FIREBASE_WEB_API_KEY}}"
                     }
                 ]
                 },
@@ -98,7 +98,7 @@
                 "header": [
                 {
                     "key": "Authorization",
-                    "value": "Bearer FIREBASE_TOKEN"
+                    "value": "Bearer {{FIREBASE_ID_TOKEN}}"
                 },
                 {
                     "key": "Content-Type",
@@ -110,7 +110,7 @@
                 "raw": "{\n  \"fields\": {\n    \"userId\": { \"stringValue\": \"user123\" },\n    \"location\": { \"stringValue\": \"17.3850,78.4867\" },\n    \"status\": { \"stringValue\": \"active\" },\n    \"createdAt\": { \"timestampValue\": \"2025-11-13T10:00:00Z\" }\n  }\n}"
                 },
                 "url": {
-                "raw": "https://firestore.googleapis.com/v1/projects/YOUR_PROJECT/databases/(default)/documents/alerts",
+                "raw": "https://firestore.googleapis.com/v1/projects/{{FIREBASE_PROJECT_ID}}/databases/(default)/documents/alerts",
                 "protocol": "https",
                 "host": [
                     "firestore",
@@ -120,7 +120,7 @@
                 "path": [
                     "v1",
                     "projects",
-                    "YOUR_PROJECT",
+                    "{{FIREBASE_PROJECT_ID}}",
                     "databases",
                     "(default)",
                     "documents",
@@ -146,7 +146,7 @@
                 ]
                 },
                 "url": {
-                "raw": "https://firebasestorage.googleapis.com/v0/b/YOUR_PROJECT.appspot.com/o",
+                "raw": "https://firebasestorage.googleapis.com/v0/b/{{FIREBASE_STORAGE_BUCKET}}/o",
                 "protocol": "https",
                 "host": [
                     "firebasestorage",
@@ -156,7 +156,7 @@
                 "path": [
                     "v0",
                     "b",
-                    "YOUR_PROJECT.appspot.com",
+                    "{{FIREBASE_STORAGE_BUCKET}}",
                     "o"
                 ]
                 },
@@ -166,3 +166,4 @@
             }
         ]
         }
+

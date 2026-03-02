@@ -64,73 +64,93 @@
         ```
 
         ---
+# RunSOS Architecture
 
-        ## Firebase Integration
+RunSOS is an Emergency & Live Safety System for runners/cyclists/solo outdoor users.
 
-        ### Authentication
+## Core Idea
 
-        * Email/Password login
-        * Firebase returns ID Token
-        * Token used for secure requests
+- **One-tap SOS** creates an emergency event and shares live location.
+- **Live tracking** continuously updates the user’s location in **Firebase Realtime Database**.
+- **Emergency contacts** receive **push notifications via FCM** (and SMS fallback from the sender device).
 
-        ### Firestore Collections
+## Tech Stack
 
-        ```
-        users/
-        alerts/
-        emergency_contacts/
-        ```
+- Flutter (Material 3, dark theme)
+- Firebase Authentication (Phone OTP)
+- Cloud Firestore (profiles, emergency contacts, SOS events, FCM tokens)
+- Firebase Realtime Database (live location stream)
+- Firebase Cloud Messaging (push notifications)
+- Google Maps (map view)
 
-        Alert Document Example:
+## High-Level Architecture
 
-        ```
-        alertId
-        userId
-        location
-        status
-        createdAt
-        ```
+```text
+Flutter App
+    ├─ Firebase Auth (Phone OTP)
+    ├─ Firestore
+    │   ├─ users/{uid} (profile)
+    │   ├─ users/{uid}/emergencyContacts (contacts)
+    │   ├─ users/{uid}/fcmTokens (device tokens)
+    │   ├─ phone_index/{e164} → uid (contact lookup)
+    │   └─ sos_events/{eventId} (SOS metadata)
+    ├─ Realtime Database
+    │   └─ locations/{uid} (live position)
+    └─ FCM
+            └─ Cloud Function trigger on sos_events/* sends push to contacts
+```
 
-        ---
+## Screen Flow
 
-        ## Security
+```text
+Login (phone OTP)
+    → Profile setup (name/photo/blood group + emergency contacts)
+    → Home (SOS button + start/stop tracking)
+    → Run Mode (tracking + share tracking code)
+    → SOS (event created + contacts notified + map link)
+```
 
-        * Firebase Auth required for all operations
-        * Firestore Rules:
+## App Structure (Feature-based)
 
-        ```
-        allow read, write: if request.auth != null;
-        ```
+The RunSOS MVP lives under `lib/runsos/`.
 
-        ---
+```text
+lib/
+    runsos/
+        app/            # Auth gate + navigation
+        features/       # Screens grouped by feature
+        models/         # Plain Dart models
+        services/       # Firebase + device integrations
+        theme/          # Dark safety theme
+        utils/          # SMS helper etc
+        widgets/        # SOS button etc
+```
 
-        ## Deployment
+## Data Flow (MVP)
 
-        ### Flutter
+```mermaid
+flowchart TD
+    A[User taps SOS] --> B[Get current GPS position]
+    B --> C[Create Firestore sos_events doc]
+    C --> D[Cloud Function fires]
+    D --> E[Resolve emergency contacts]
+    E --> F[Send FCM pushes to contacts]
+    A --> G[Update RTDB locations/{uid} isSosActive=true]
+    H[Contacts open push] --> I[Open Live Map screen]
+    I --> J[Listen to RTDB locations/{uid}]
+```
 
-        ```
-        flutter build apk
-        ```
+## Security Model (Design)
 
-        or
+- Users can write **their own** profile and location.
+- Emergency contacts can **read** a runner’s live location *only when explicitly shared* (V1 recommended via shareable link or per-contact grants).
+- In MVP code, location reads are shown via a tracking UID; rules should restrict this.
 
-        ```
-        flutter build appbundle
-        ```
+Practical recommendation for V1:
 
-        ### Firebase Setup
+- Introduce `location_shares/{uid}/viewers/{viewerUid}` grants and enforce RTDB reads accordingly.
 
-        1. Add `google-services.json`
-        2. Enable Auth + Firestore + Storage
-        3. Configure Firebase project
+## Notes About This Repo
 
-        ---
-
-        ## Documentation Update Checklist
-
-        When adding a feature:
-
-        * Update Postman Collection
-        * Update ARCHITECTURE.md
-        * Update Firestore structure
-        * Increase version if API changes
+This workspace contains the Dart code and Firebase/Cloud Function skeletons.
+To run on a device/emulator you also need the usual Flutter platform folders (`android/`, `ios/`) and Firebase config files (e.g. `google-services.json`).

@@ -1,3 +1,13 @@
+# RunSOS
+
+This repo contains **RunSOS**, an Emergency + Live Safety System MVP built with Flutter + Firebase.
+
+- Product/architecture overview: see [docs/RUNSOS.md](docs/RUNSOS.md)
+- System architecture: see [ARCHITECTURE.md](ARCHITECTURE.md)
+- Credentials/keys setup (Firebase/Maps/Postman): see [docs/SETUP_KEYS.md](docs/SETUP_KEYS.md)
+
+---
+
 # Animations in Flutter
 
 This comprehensive demo showcases how animations enhance user experience through smooth transitions, visual feedback, and natural motion. The project includes implicit animations, explicit animations, and page transitions.

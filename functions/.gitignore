@@ -1,0 +1,23 @@
+node_modules/
+.firebase/
+
+# Local secrets
+.env
+.env.*
+
+# Encrypted files / key material
+*.enc
+*.gpg
+*.pgp
+*.age
+*.sops
+*.sops.yaml
+*.sops.yml
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Firebase CLI generated config (can contain project-specific values)
+.runtimeconfig.json
+

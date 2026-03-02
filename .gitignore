@@ -1,0 +1,34 @@
+# Secrets / local config
+.env
+.env.*
+
+# Encrypted files / key material
+*.enc
+*.gpg
+*.pgp
+*.age
+*.sops
+*.sops.yaml
+*.sops.yml
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Flutter / Dart build artifacts
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Firebase / Functions local artifacts
+functions/node_modules/
+functions/.firebase/

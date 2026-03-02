@@ -20,15 +20,15 @@ This document explains the default folder layout created by Flutter and the purp
 ```
 lib/
 ┣ main.dart
-┣ screens/
-┃ ┣ home_screen.dart
-┃ ┗ login_screen.dart
-┣ widgets/
-┃ ┗ common_button.dart
-┣ services/
-┃ ┗ auth_service.dart
-┗ models/
-  ┗ user.dart
+┣ runsos/
+┃ ┣ app/
+┃ ┣ features/
+┃ ┣ models/
+┃ ┣ services/
+┃ ┣ theme/
+┃ ┣ utils/
+┃ ┗ widgets/
+┗ screens/            # legacy demo screens (not used by RunSOS app)
 ```
 
 ## How this structure supports scalability and teamwork
