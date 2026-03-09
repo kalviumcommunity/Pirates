@@ -9,7 +9,7 @@ import 'features/auth/phone_login_screen.dart';
 import 'theme/app_theme.dart';
 
 class RunSosApp extends StatelessWidget {
-  RunSosApp({super.key});
+  const RunSosApp({super.key});
 
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();

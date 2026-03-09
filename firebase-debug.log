@@ -1,0 +1,98 @@
+[debug] [2026-03-09T09:15:35.551Z] ----------------------------------------------------------------------
+[debug] [2026-03-09T09:15:35.555Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --config firebase.json --project runsos --only auth firestore database --debug
+[debug] [2026-03-09T09:15:35.555Z] CLI Version:   15.9.0
+[debug] [2026-03-09T09:15:35.555Z] Platform:      win32
+[debug] [2026-03-09T09:15:35.555Z] Node Version:  v24.12.0
+[debug] [2026-03-09T09:15:35.555Z] Time:          Mon Mar 09 2026 14:45:35 GMT+0530 (India Standard Time)
+[debug] [2026-03-09T09:15:35.556Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-09T09:15:36.543Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-09T09:15:36.544Z] > authorizing via signed-in user (kollepara.abhiram.s81@kalvium.community)
+[debug] [2026-03-09T09:15:36.551Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[debug] [2026-03-09T09:15:36.556Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[error] 
+[error] Error: No emulators to start, run firebase init emulators to get started.
+[debug] [2026-03-09T09:15:52.117Z] ----------------------------------------------------------------------
+[debug] [2026-03-09T09:15:52.119Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --config firebase.json --project runsos --debug
+[debug] [2026-03-09T09:15:52.120Z] CLI Version:   15.9.0
+[debug] [2026-03-09T09:15:52.120Z] Platform:      win32
+[debug] [2026-03-09T09:15:52.120Z] Node Version:  v24.12.0
+[debug] [2026-03-09T09:15:52.120Z] Time:          Mon Mar 09 2026 14:45:52 GMT+0530 (India Standard Time)
+[debug] [2026-03-09T09:15:52.120Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-09T09:15:53.306Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-09T09:15:53.307Z] > authorizing via signed-in user (kollepara.abhiram.s81@kalvium.community)
+[debug] [2026-03-09T09:15:53.540Z] java version "24.0.1" 2025-04-15
+Java(TM) SE Runtime Environment (build 24.0.1+9-30)
+Java HotSpot(TM) 64-Bit Server VM (build 24.0.1+9-30, mixed mode, sharing)
+
+[debug] [2026-03-09T09:15:53.579Z] Parsed Java major version: 24
+[info] i  emulators: Starting emulators: auth, functions, firestore, database, extensions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, extensions"}}
+[debug] [2026-03-09T09:15:53.584Z] Checked if tokens are valid: false, expires at: 1773047715124
+[debug] [2026-03-09T09:15:53.585Z] Checked if tokens are valid: false, expires at: 1773047715124
+[debug] [2026-03-09T09:15:53.585Z] > refreshing access token with scopes: []
+[debug] [2026-03-09T09:15:53.588Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-03-09T09:15:53.589Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-09T09:15:53.743Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-03-09T09:15:53.745Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-09T09:15:53.759Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/runsos/services/cloudresourcemanager.googleapis.com [none]
+[debug] [2026-03-09T09:15:53.760Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/runsos/services/cloudresourcemanager.googleapis.com  x-goog-user-project=runsos
+[debug] [2026-03-09T09:15:55.482Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/runsos/services/cloudresourcemanager.googleapis.com 200
+[debug] [2026-03-09T09:15:55.484Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/runsos/services/cloudresourcemanager.googleapis.com [omitted]
+[debug] [2026-03-09T09:15:55.518Z] Checked if tokens are valid: true, expires at: 1773051352747
+[debug] [2026-03-09T09:15:55.519Z] Checked if tokens are valid: true, expires at: 1773051352747
+[debug] [2026-03-09T09:15:55.521Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/runsos [none]
+[debug] [2026-03-09T09:15:56.893Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/runsos 200
+[debug] [2026-03-09T09:15:56.897Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/runsos {"projectNumber":"480154772273","projectId":"runsos","lifecycleState":"ACTIVE","name":"RunSOS","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-02-16T08:45:05.699092Z","parent":{"type":"organization","id":"639242722004"}}
+[debug] [2026-03-09T09:15:56.939Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:56.940Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:56.941Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:56.941Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:56.942Z] [database] Database Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:56.943Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2026-03-09T09:15:56.959Z] Write emulator hub locator at C:\Users\hp\AppData\Local\Temp\hub-runsos.json
+[debug] [2026-03-09T09:15:56.985Z] [Extensions] Started Extensions emulator, this is a noop.
+[debug] [2026-03-09T09:15:57.006Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:57.007Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:57.008Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-03-09T09:15:57.009Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"database":[{"address":"127.0.0.1","family":"IPv4","port":9000}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: apphosting, hosting, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mapphosting, hosting, pubsub, storage, dataconnect\u001b[22m"}}
+[debug] [2026-03-09T09:15:57.100Z] defaultcredentials: writing to file C:\Users\hp\AppData\Roaming\firebase\kollepara_abhiram.s81_kalvium.community_application_default_credentials.json
+[debug] [2026-03-09T09:15:57.106Z] Setting GAC to C:\Users\hp\AppData\Roaming\firebase\kollepara_abhiram.s81_kalvium.community_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\hp\\AppData\\Roaming\\firebase\\kollepara_abhiram.s81_kalvium.community_application_default_credentials.json"}}
+[debug] [2026-03-09T09:15:57.108Z] Checked if tokens are valid: true, expires at: 1773051352747
+[debug] [2026-03-09T09:15:57.109Z] Checked if tokens are valid: true, expires at: 1773051352747
+[debug] [2026-03-09T09:15:57.110Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/runsos/adminSdkConfig [none]
+[debug] [2026-03-09T09:15:58.406Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/runsos/adminSdkConfig 200
+[debug] [2026-03-09T09:15:58.407Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/runsos/adminSdkConfig {"projectId":"runsos","storageBucket":"runsos.firebasestorage.app"}
+[info] i  firestore: downloading cloud-firestore-emulator-v1.20.2.jar... {"metadata":{"emulator":{"name":"firestore"},"message":"downloading cloud-firestore-emulator-v1.20.2.jar..."}}
+[debug] [2026-03-09T09:15:58.487Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.20.2.jar 
+[debug] [2026-03-09T09:15:58.960Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.20.2.jar 200
+[debug] [2026-03-09T09:15:58.961Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.20.2.jar [stream]
+[debug] [2026-03-09T09:16:14.598Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-03-09T09:16:14.598Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2026-03-09T09:16:14.599Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\hp\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.20.2.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","runsos","--rules","C:\\Users\\hp\\Desktop\\Pirates\\firestore.rules","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false,"shell":false,"port":8080} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\hp\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.20.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"runsos\",\"--rules\",\"C:\\\\Users\\\\hp\\\\Desktop\\\\Pirates\\\\firestore.rules\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":8080}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2026-03-09T09:16:17.746Z] Checked if tokens are valid: true, expires at: 1773051352747
+[debug] [2026-03-09T09:16:17.748Z] Checked if tokens are valid: true, expires at: 1773051352747
+[debug] [2026-03-09T09:16:17.755Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/runsos [none]
+[debug] [2026-03-09T09:16:19.031Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/runsos 200
+[debug] [2026-03-09T09:16:19.034Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/runsos {"projectId":"runsos","projectNumber":"480154772273","displayName":"RunSOS","name":"projects/runsos","resources":{"hostingSite":"runsos"},"state":"ACTIVE","etag":"1_613e9e6b-aa7d-40dd-80e8-71d134f36c4a"}
+[debug] [2026-03-09T09:16:19.039Z] database rules config:  [{"instance":"runsos-default-rtdb","rules":"C:\\Users\\hp\\Desktop\\Pirates\\database.rules.json"}]
+[info] i  database: downloading firebase-database-emulator-v4.11.2.jar... {"metadata":{"emulator":{"name":"database"},"message":"downloading firebase-database-emulator-v4.11.2.jar..."}}
+[debug] [2026-03-09T09:16:19.067Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.11.2.jar 
+[debug] [2026-03-09T09:16:19.649Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.11.2.jar 200
+[debug] [2026-03-09T09:16:19.652Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.11.2.jar [stream]
+[debug] [2026-03-09T09:16:24.356Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2026-03-09T09:16:24.356Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-03-09T09:16:24.357Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2026-03-09T09:16:24.358Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\hp\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.11.2.jar","--host","127.0.0.1","--port",9000,"--single_project_mode","Warning","--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host","single_project_mode"],"joinArgs":false,"shell":false,"port":9000} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\hp\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.11.2.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--single_project_mode\",\"Warning\",\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":9000}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[warn] !  firestore: Fatal error occurred: 
+   Firestore Emulator has exited with code: 3221225786, 
+   stopping all running emulators {"metadata":{"emulator":{"name":"firestore"},"message":"Fatal error occurred: \n   Firestore Emulator has exited with code: 3221225786, \n   stopping all running emulators"}}
+[info] i  extensions: Stopping Extensions Emulator {"metadata":{"emulator":{"name":"extensions"},"message":"Stopping Extensions Emulator"}}
+[debug] [2026-03-09T09:16:40.732Z] [Extensions] Stopping Extensions emulator, this is a noop.
+[info] i  functions: Stopping Functions Emulator {"metadata":{"emulator":{"name":"functions"},"message":"Stopping Functions Emulator"}}
+[info] i  database: Stopping Database Emulator {"metadata":{"emulator":{"name":"database"},"message":"Stopping Database Emulator"}}

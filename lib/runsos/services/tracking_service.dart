@@ -22,6 +22,8 @@ class TrackingService {
   final LocationService _locationService;
 
   StreamSubscription<Position>? _sub;
+  String? _activeUid;
+  bool _isRunMode = false;
 
   TrackingService._internal({
     FirebaseDatabase? rtdb,
@@ -34,30 +36,35 @@ class TrackingService {
   }
 
   bool get isTracking => _sub != null;
+  bool get isRunMode => _isRunMode;
+  String? get activeUid => _activeUid;
 
   Future<void> startTracking({
     required String uid,
     bool isRunMode = false,
   }) async {
-    if (_sub != null) {
+    if (_sub != null && _activeUid == uid) {
+      _isRunMode = isRunMode;
+      await _locationRef(uid).update({
+        'isTracking': true,
+        'isRunMode': _isRunMode,
+        'updatedAt': ServerValue.timestamp,
+      });
       return;
     }
 
-    await _locationRef(uid).update({
-      'isTracking': true,
-      'isRunMode': isRunMode,
-      'updatedAt': ServerValue.timestamp,
-    });
+    if (_sub != null && _activeUid != null && _activeUid != uid) {
+      await stopTracking(uid: _activeUid!);
+    }
+
+    _activeUid = uid;
+    _isRunMode = isRunMode;
+
+    final current = await _locationService.getCurrentPosition();
+    await _writePosition(uid: uid, pos: current);
 
     _sub = _locationService.positionStream().listen((pos) {
-      _locationRef(uid).update({
-        'lat': pos.latitude,
-        'lng': pos.longitude,
-        'accuracy': pos.accuracy,
-        'speed': pos.speed,
-        'heading': pos.heading,
-        'updatedAt': ServerValue.timestamp,
-      });
+      _writePosition(uid: uid, pos: pos);
     });
   }
 
@@ -66,6 +73,8 @@ class TrackingService {
   }) async {
     await _sub?.cancel();
     _sub = null;
+    _activeUid = null;
+    _isRunMode = false;
 
     await _locationRef(uid).update({
       'isTracking': false,
@@ -86,6 +95,22 @@ class TrackingService {
     await _locationRef(uid).update({
       'isSosActive': isSosActive,
       'activeSosId': activeSosId,
+      'updatedAt': ServerValue.timestamp,
+    });
+  }
+
+  Future<void> _writePosition({
+    required String uid,
+    required Position pos,
+  }) async {
+    await _locationRef(uid).update({
+      'lat': pos.latitude,
+      'lng': pos.longitude,
+      'accuracy': pos.accuracy,
+      'speed': pos.speed,
+      'heading': pos.heading,
+      'isTracking': true,
+      'isRunMode': _isRunMode,
       'updatedAt': ServerValue.timestamp,
     });
   }

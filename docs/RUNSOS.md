@@ -15,9 +15,13 @@ See [docs/SETUP_KEYS.md](docs/SETUP_KEYS.md) for where to pull Firebase config, 
 - Home
   - Large SOS button
   - Start/Stop tracking
+  - 5-second SOS countdown with cancel option
+  - Tracking status indicators for tracking, run mode, and active SOS state
+  - Manual open of a shared tracking link or tracking code
 - SOS
   - Creates a Firestore `sos_events` document
   - Captures current location and generates a Google Maps link
+  - Automatically enables live tracking before the alert is sent
   - SMS fallback: opens the user’s SMS app with a prefilled alert message
 - Live tracking
   - Continuously writes location updates to Realtime Database `locations/{uid}`
@@ -48,6 +52,14 @@ Already added to `pubspec.yaml`:
 - `firebase_storage` + `image_picker` (profile photo)
 - `share_plus` (share run mode tracking code)
 - `url_launcher` (SMS fallback)
+
+## Android Setup Notes
+
+- Add `google-services.json` to `android/app/google-services.json`
+- Add your Maps key to `android/local.properties`:
+  - `maps.api.key=YOUR_ANDROID_MAPS_KEY`
+- Optional custom tracking link domain:
+  - `flutter run --dart-define=RUNSOS_TRACKING_BASE_URL=https://your-domain/track`
 
 ## Firebase Data Model (MVP)
 
@@ -126,14 +138,22 @@ Already added to `pubspec.yaml`:
 }
 ```
 
-## Security Rules (Recommended Direction)
+## Security Rules (Current Starter Setup)
 
-MVP code focuses on the client and schema. For a real deployment:
+This workspace now includes:
+
+- `firestore.rules`
+- `database.rules.json`
+
+Current MVP rule posture:
 
 - Firestore: users can read/write their own profile, contacts, and tokens.
-- Realtime DB: users can write their own location.
-- Location reads should be restricted (V1 suggestion):
-  - Add `location_shares/{runnerUid}/viewers/{viewerUid}` grants and only allow those viewers to read.
+- Realtime DB: users can write their own location; reads are limited to authenticated users.
+
+Recommended V1 hardening:
+
+- Add `location_shares/{runnerUid}/viewers/{viewerUid}` grants and only allow those viewers to read.
+- Replace UID-based tracking sharing with signed share tokens or a callable backend.
 
 ## Cloud Function (FCM sending)
 
@@ -147,7 +167,6 @@ See `functions/index.js`:
 ## V1 Roadmap (Planned)
 
 - Background location tracking
-- 5-second countdown before SOS + cancel
 - Low battery alerts
 - Proper shareable tracking link (Firebase Dynamic Links + web viewer)
 

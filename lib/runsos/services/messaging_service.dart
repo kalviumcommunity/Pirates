@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart'
+  show TargetPlatform, defaultTargetPlatform, debugPrint, kIsWeb;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class MessagingService {
@@ -23,6 +22,11 @@ class MessagingService {
     required String uid,
     required void Function(RemoteMessage message) onNotificationTap,
   }) async {
+    if (kIsWeb) {
+      debugPrint('Skipping Firebase Messaging init on web for this build.');
+      return;
+    }
+
     await _initLocalNotifications(onNotificationTap);
 
     final settings = await _messaging.requestPermission(
@@ -62,7 +66,7 @@ class MessagingService {
         .collection('fcmTokens')
         .doc(token)
         .set({
-      'platform': Platform.operatingSystem,
+      'platform': _platformName,
       'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
@@ -70,6 +74,10 @@ class MessagingService {
   Future<void> _initLocalNotifications(
     void Function(RemoteMessage message) onNotificationTap,
   ) async {
+    if (kIsWeb) {
+      return;
+    }
+
     const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
     const iosSettings = DarwinInitializationSettings();
 
@@ -87,7 +95,7 @@ class MessagingService {
       },
     );
 
-    if (Platform.isAndroid) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
       const channel = AndroidNotificationChannel(
         'runsos_alerts',
         'RunSOS Alerts',
@@ -99,6 +107,27 @@ class MessagingService {
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
+    }
+  }
+
+  String get _platformName {
+    if (kIsWeb) {
+      return 'web';
+    }
+
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return 'android';
+      case TargetPlatform.iOS:
+        return 'ios';
+      case TargetPlatform.macOS:
+        return 'macos';
+      case TargetPlatform.windows:
+        return 'windows';
+      case TargetPlatform.linux:
+        return 'linux';
+      case TargetPlatform.fuchsia:
+        return 'fuchsia';
     }
   }
 

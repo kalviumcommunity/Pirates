@@ -1,6 +1,14 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart' show TargetPlatform, defaultTargetPlatform, kIsWeb;
 
+const _defaultWebApiKey = 'AIzaSyBQZ_S1GXfnrZj7mG2SkhdO5RKVfmxsX-A';
+const _defaultWebAppId = '1:480154772273:web:64df43c066fd4c343ac610';
+const _defaultWebMessagingSenderId = '480154772273';
+const _defaultProjectId = 'runsos';
+const _defaultWebAuthDomain = 'runsos.firebaseapp.com';
+const _defaultStorageBucket = 'runsos.firebasestorage.app';
+const _defaultDatabaseUrl = 'https://runsos-default-rtdb.firebaseio.com';
+
 /// Firebase options for platforms that require explicit configuration.
 ///
 /// For Web: you MUST provide options.
@@ -43,15 +51,37 @@ class DefaultFirebaseOptions {
   ///   --dart-define=FIREBASE_WEB_MESSAGING_SENDER_ID=... \
   ///   --dart-define=FIREBASE_PROJECT_ID=... \
   ///   --dart-define=FIREBASE_WEB_AUTH_DOMAIN=... \
-  ///   --dart-define=FIREBASE_STORAGE_BUCKET=...
+  ///   --dart-define=FIREBASE_STORAGE_BUCKET=... \
+  ///   --dart-define=FIREBASE_DATABASE_URL=...
   static FirebaseOptions get web {
-    const apiKey = String.fromEnvironment('FIREBASE_WEB_API_KEY');
-    const appId = String.fromEnvironment('FIREBASE_WEB_APP_ID');
-    const messagingSenderId =
-        String.fromEnvironment('FIREBASE_WEB_MESSAGING_SENDER_ID');
-    const projectId = String.fromEnvironment('FIREBASE_PROJECT_ID');
-    const authDomain = String.fromEnvironment('FIREBASE_WEB_AUTH_DOMAIN');
-    const storageBucket = String.fromEnvironment('FIREBASE_STORAGE_BUCKET');
+    const apiKey = String.fromEnvironment(
+      'FIREBASE_WEB_API_KEY',
+      defaultValue: _defaultWebApiKey,
+    );
+    const appId = String.fromEnvironment(
+      'FIREBASE_WEB_APP_ID',
+      defaultValue: _defaultWebAppId,
+    );
+    const messagingSenderId = String.fromEnvironment(
+      'FIREBASE_WEB_MESSAGING_SENDER_ID',
+      defaultValue: _defaultWebMessagingSenderId,
+    );
+    const projectId = String.fromEnvironment(
+      'FIREBASE_PROJECT_ID',
+      defaultValue: _defaultProjectId,
+    );
+    const authDomain = String.fromEnvironment(
+      'FIREBASE_WEB_AUTH_DOMAIN',
+      defaultValue: _defaultWebAuthDomain,
+    );
+    const storageBucket = String.fromEnvironment(
+      'FIREBASE_STORAGE_BUCKET',
+      defaultValue: _defaultStorageBucket,
+    );
+    const databaseUrl = String.fromEnvironment(
+      'FIREBASE_DATABASE_URL',
+      defaultValue: _defaultDatabaseUrl,
+    );
 
     final missing = <String>[];
     if (apiKey.isEmpty) missing.add('FIREBASE_WEB_API_KEY');
@@ -60,6 +90,7 @@ class DefaultFirebaseOptions {
     if (projectId.isEmpty) missing.add('FIREBASE_PROJECT_ID');
     if (authDomain.isEmpty) missing.add('FIREBASE_WEB_AUTH_DOMAIN');
     if (storageBucket.isEmpty) missing.add('FIREBASE_STORAGE_BUCKET');
+    if (databaseUrl.isEmpty) missing.add('FIREBASE_DATABASE_URL');
 
     if (missing.isNotEmpty) {
       throw StateError(
@@ -72,13 +103,14 @@ class DefaultFirebaseOptions {
       );
     }
 
-    return FirebaseOptions(
+    return const FirebaseOptions(
       apiKey: apiKey,
       appId: appId,
       messagingSenderId: messagingSenderId,
       projectId: projectId,
       authDomain: authDomain,
       storageBucket: storageBucket,
+      databaseURL: databaseUrl,
     );
   }
 }

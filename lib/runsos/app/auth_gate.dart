@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 import '../features/auth/phone_login_screen.dart';
@@ -11,6 +12,7 @@ import '../features/sos/sos_map_screen.dart';
 import '../models/user_profile.dart';
 import '../services/messaging_service.dart';
 import '../services/user_profile_service.dart';
+import '../utils/app_config.dart';
 import '../runsos_app.dart';
 
 class AuthGate extends StatefulWidget {
@@ -33,7 +35,9 @@ class _AuthGateState extends State<AuthGate> {
 
     _authSub = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user?.uid != null) {
-        _profiles.updateLastSeen(user!.uid);
+        if (!_useLocalDevDashboard(user!)) {
+          _profiles.updateLastSeen(user.uid);
+        }
         _initMessagingOnce(user.uid);
       }
     });
@@ -85,6 +89,10 @@ class _AuthGateState extends State<AuthGate> {
           return const PhoneLoginScreen();
         }
 
+        if (_useLocalDevDashboard(user)) {
+          return const RunSosHomeScreen();
+        }
+
         return StreamBuilder<UserProfile?>(
           stream: _profiles.watchProfile(user.uid),
           builder: (context, profileSnap) {
@@ -104,5 +112,11 @@ class _AuthGateState extends State<AuthGate> {
         );
       },
     );
+  }
+
+  bool _useLocalDevDashboard(User user) {
+    return kIsWeb &&
+        AppConfig.phoneAuthTestMode &&
+        user.isAnonymous;
   }
 }

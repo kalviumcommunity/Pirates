@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import '../../models/user_profile.dart';
 import '../../services/runsos_auth_service.dart';
 import '../../services/user_profile_service.dart';
+import '../../utils/app_config.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
-  final String verificationId;
+  final String? verificationId;
+  final bool isLocalDevMock;
 
   const OtpScreen({
     super.key,
     required this.phoneNumber,
-    required this.verificationId,
+    this.verificationId,
+    this.isLocalDevMock = false,
   });
 
   @override
@@ -49,26 +52,36 @@ class _OtpScreenState extends State<OtpScreen> {
       final cred = await _auth.verifySmsCode(
         verificationId: widget.verificationId,
         smsCode: code,
+        isLocalDevMock: widget.isLocalDevMock,
       );
 
       final user = cred.user;
       if (user != null) {
-        await _profiles.upsertPhoneIndex(e164Phone: widget.phoneNumber, uid: user.uid);
-
-        // Create an initial profile if missing.
-        final existing = await _profiles.getProfile(user.uid);
-        if (existing == null) {
-          await _profiles.upsertProfile(
-            profile: UserProfile(
-              uid: user.uid,
-              name: '',
-              phoneNumber: user.phoneNumber ?? widget.phoneNumber,
-            ),
+        if (!widget.isLocalDevMock) {
+          await _profiles.upsertPhoneIndex(
+            e164Phone: widget.phoneNumber,
+            uid: user.uid,
           );
+
+          final existing = await _profiles.getProfile(user.uid);
+          if (existing == null) {
+            await _profiles.upsertProfile(
+              profile: UserProfile(
+                uid: user.uid,
+                name: '',
+                phoneNumber: user.phoneNumber ?? widget.phoneNumber,
+              ),
+            );
+          }
         }
       }
 
       if (!mounted) return;
+      if (widget.isLocalDevMock && AppConfig.phoneAuthTestMode) {
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        return;
+      }
+
       Navigator.popUntil(context, (r) => r.isFirst);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
@@ -89,42 +102,73 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Enter OTP')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Code sent to ${widget.phoneNumber}',
-              style: Theme.of(context).textTheme.titleMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _codeController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'OTP code'),
-            ),
-            if (_error != null) ...[
-              const SizedBox(height: 12),
-              Text(_error!, style: const TextStyle(color: Colors.redAccent)),
-            ],
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              height: 52,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _verify,
-                child: _isLoading
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('Verify & Continue'),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF07111E), Color(0xFF112743), Color(0xFF1E0F21)],
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Verify access',
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        widget.isLocalDevMock
+                            ? 'Enter the local test OTP for ${widget.phoneNumber}'
+                            : 'Code sent to ${widget.phoneNumber}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _codeController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: 'OTP code',
+                          prefixIcon: Icon(Icons.password_rounded),
+                        ),
+                      ),
+                      if (_error != null) ...[
+                        const SizedBox(height: 14),
+                        Text(_error!, style: const TextStyle(color: Color(0xFFFF8A8A))),
+                      ],
+                      const SizedBox(height: 18),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: _isLoading ? null : _verify,
+                          icon: _isLoading
+                              ? const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                )
+                              : const Icon(Icons.verified_user_outlined),
+                          label: Text(_isLoading ? 'Verifying...' : 'Verify & Continue'),
+                        ),
+                      ),
+                    ],
+                  ),
+              ),
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

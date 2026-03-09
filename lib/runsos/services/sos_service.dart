@@ -29,6 +29,12 @@ class SosService {
       throw StateError('Not authenticated');
     }
 
+    await _trackingService.startTracking(
+      uid: user.uid,
+      isRunMode:
+          _trackingService.activeUid == user.uid && _trackingService.isRunMode,
+    );
+
     final pos = await _locationService.getCurrentPosition();
     final createdAt = DateTime.now().toUtc();
 

@@ -3,6 +3,12 @@ const admin = require('firebase-admin');
 
 admin.initializeApp();
 
+function normalizePhone(phone) {
+  return String(phone || '')
+    .replace(/[^\d+]/g, '')
+    .trim();
+}
+
 exports.onSosCreated = functions.firestore
   .document('sos_events/{eventId}')
   .onCreate(async (snap, context) => {
@@ -22,7 +28,7 @@ exports.onSosCreated = functions.firestore
       .get();
 
     const contactPhones = contactsSnap.docs
-      .map((d) => (d.data().phoneNumber || '').toString())
+      .map((d) => normalizePhone(d.data().phoneNumber))
       .filter(Boolean);
 
     if (contactPhones.length === 0) {
@@ -30,21 +36,21 @@ exports.onSosCreated = functions.firestore
     }
 
     // Resolve which contacts are also RunSOS users.
-    const contactUids = [];
+    const contactUids = new Set();
     for (const phone of contactPhones) {
       const idx = await admin.firestore().collection('phone_index').doc(phone).get();
       const contactUid = idx.exists ? idx.data().uid : null;
       if (contactUid) {
-        contactUids.push(contactUid);
+        contactUids.add(contactUid);
       }
     }
 
-    if (contactUids.length === 0) {
+    if (contactUids.size === 0) {
       return null;
     }
 
     // Collect FCM tokens.
-    const tokens = [];
+    const tokens = new Set();
     for (const contactUid of contactUids) {
       const tokenSnap = await admin
         .firestore()
@@ -53,10 +59,10 @@ exports.onSosCreated = functions.firestore
         .collection('fcmTokens')
         .get();
 
-      tokenSnap.docs.forEach((d) => tokens.push(d.id));
+      tokenSnap.docs.forEach((d) => tokens.add(d.id));
     }
 
-    if (tokens.length === 0) {
+    if (tokens.size === 0) {
       return null;
     }
 
@@ -68,12 +74,14 @@ exports.onSosCreated = functions.firestore
       data: {
         type: 'sos',
         trackUid: uid,
-        sosId: eventId
+        sosId: eventId,
+        mapsUrl,
+        userName
       }
     };
 
     await admin.messaging().sendEachForMulticast({
-      tokens,
+      tokens: Array.from(tokens),
       ...payload
     });
 

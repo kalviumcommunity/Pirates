@@ -24,6 +24,8 @@ This repo’s Flutter code uses Firebase SDKs (not raw REST APIs), so most “cr
 - Add Android app → enter your package name (e.g. `com.example.runsos`)
 - Download **google-services.json**
 - Place it at: `android/app/google-services.json`
+- Add your Maps key to `android/local.properties`:
+  - `maps.api.key=YOUR_ANDROID_MAPS_KEY`
 
 **iOS app**
 - Add iOS app → enter your bundle ID
@@ -67,8 +69,9 @@ If you’re using REST calls (like the Postman collection in this repo), then yo
 Once you have `android/` and `ios/` folders in your project:
 
 **Android**
-- Put it in `android/app/src/main/AndroidManifest.xml` as:
-  - `<meta-data android:name="com.google.android.geo.API_KEY" android:value="YOUR_KEY" />`
+- This repo already injects the key into `AndroidManifest.xml` from `android/local.properties`.
+- Add this line locally:
+  - `maps.api.key=YOUR_KEY`
 
 **iOS**
 - Common patterns:
@@ -116,12 +119,50 @@ You’d integrate an SMS provider (e.g. Twilio) on a backend and then you will h
 - Use a local `.env` file at the repo root for your own reference (ignored by git).
   - Template: `.env.example` (safe to commit)
   - Real file: `.env` (DO NOT commit)
+- Optional runtime define for shared links:
+  - `RUNSOS_TRACKING_BASE_URL=https://your-domain/track`
 
 ### Flutter app
 
 - Prefer build-time defines for non-secret config:
   - Example: `flutter run --dart-define=API_BASE_URL=https://example.com`
 - Avoid putting real secrets in Flutter builds (mobile apps can be reverse engineered).
+
+### Local web phone auth testing
+
+- Firebase web phone auth on localhost commonly falls back to reCAPTCHA.
+- This repo supports an optional development-only test mode for Firebase fictional phone numbers.
+- Add these values to your local `.env` if you want reCAPTCHA-free local testing on Chrome:
+  - `RUNSOS_PHONE_AUTH_TEST_MODE=true`
+  - `RUNSOS_TEST_PHONE_NUMBER=+16505553434`
+  - `RUNSOS_TEST_SMS_CODE=123456`
+- Then run:
+  - `flutter run -d chrome --dart-define-from-file=.env`
+- Important: the phone number and code must first be added in Firebase Console → Authentication → Sign-in method → Phone → Phone numbers for testing.
+
+### Firebase Emulator Suite
+
+- This repo now supports optional emulator routing for Auth, Firestore, and Realtime Database.
+- Install Firebase CLI first:
+  - `npm install -g firebase-tools`
+- Start emulators from the repo root:
+  - `firebase emulators:start --only auth,firestore,database`
+- Then add these to your local `.env` for emulator-backed runs:
+  - `RUNSOS_USE_FIREBASE_EMULATORS=true`
+  - `RUNSOS_AUTH_EMULATOR_HOST=127.0.0.1`
+  - `RUNSOS_AUTH_EMULATOR_PORT=9099`
+  - `RUNSOS_FIRESTORE_EMULATOR_HOST=127.0.0.1`
+  - `RUNSOS_FIRESTORE_EMULATOR_PORT=8080`
+  - `RUNSOS_DATABASE_EMULATOR_HOST=127.0.0.1`
+  - `RUNSOS_DATABASE_EMULATOR_PORT=9000`
+- For Android emulator runs, use `10.0.2.2` instead of `127.0.0.1` for the emulator host values.
+- Example Android emulator values:
+  - `RUNSOS_AUTH_EMULATOR_HOST=10.0.2.2`
+  - `RUNSOS_FIRESTORE_EMULATOR_HOST=10.0.2.2`
+  - `RUNSOS_DATABASE_EMULATOR_HOST=10.0.2.2`
+- Then run the app with:
+  - `flutter run -d chrome --dart-define-from-file=.env`
+  - or `flutter run -d <android-device-id> --dart-define-from-file=.env`
 
 #### Flutter Web + Firebase (important)
 
